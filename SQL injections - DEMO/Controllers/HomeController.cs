@@ -34,14 +34,23 @@ namespace SQL_injections___DEMO.Controllers
                 string sql = $"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'";
                 SqlCommand command = new SqlCommand(sql, connection);
 
+
+                //string sql = "SELECT * FROM Users WHERE username = @Username AND password = @Password";
+                //SqlCommand command = new SqlCommand(sql, connection);
+
+
+                //command.Parameters.AddWithValue("@Username", username);
+                //command.Parameters.AddWithValue("@Password", password);
+
+
                 var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
                     User user = new User()
                     {
-                        Id = reader.GetInt32(0),
-                        Username = reader.GetString(1),
-                        Password = reader.GetString(2)
+                        Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),                   // handle null id
+                        Username = reader.IsDBNull(1) ? string.Empty : reader.GetString(1), // handle null username
+                        Password = reader.IsDBNull(2) ? string.Empty : reader.GetString(2)  // handle null password
                     };
                     ViewBag.Message = $"Login successful!, Welcome {user.Username}";
                 }
