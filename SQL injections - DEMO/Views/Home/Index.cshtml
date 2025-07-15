@@ -6,7 +6,7 @@
 <div class="text-center d-flex justify-content-center align-items-center h-100">
     <div>
         <h1 class="">Login</h1>
-       <form asp-action="Index">
+        <form asp-action="Index" method="post">
            <div class="input-group mb-3">
                 <input asp-for="Username" type="text" class="form-control" placeholder="Login"/>
                 <label for="Username"></label>
@@ -16,14 +16,21 @@
                 <label for="Username"></label>
            </div>
             <div class="d-flex justify-content-end">
-                <input type="submit" value="Login" class="btn btn-primary"/>
+                <input id="Login" type="submit" value="Login" class="btn btn-primary"/>
            </div>
        </form>
     </div>
 </div>
+@section Scripts {
 @if(ViewBag.Message != null)
-{
-    <div>
-        <label>@ViewBag.Message</label>
-    </div>
+    {
+        <script>
+            $(document).ready(function () {
+                var message = "@ViewBag.Message";
+                if (message && message.trim() !== "") {
+                    alert(message);
+                }
+            });
+        </script>
+    }
 }

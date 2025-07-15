@@ -9,7 +9,7 @@ namespace SQL_injections___DEMO.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly string connectionString = "Data Source=LAB4-PC25\\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True;Trust Server Certificate=True";
+        private readonly string connectionString = "Data Source=LAB4-PC16\\LAB2PC16;Initial Catalog=\\SQLIDEMO;Integrated Security=True;Trust Server Certificate=True";
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -35,9 +35,15 @@ namespace SQL_injections___DEMO.Controllers
                 SqlCommand command = new SqlCommand(sql, connection);
 
                 var reader = command.ExecuteReader();
-                if (reader.HasRows)
+                if (reader.Read())
                 {
-                    ViewBag.Message = "Login successful!";
+                    User user = new User()
+                    {
+                        Id = reader.GetInt32(0),
+                        Username = reader.GetString(1),
+                        Password = reader.GetString(2)
+                    };
+                    ViewBag.Message = $"Login successful!, Welcome {user.Username}";
                 }
                 else
                 {

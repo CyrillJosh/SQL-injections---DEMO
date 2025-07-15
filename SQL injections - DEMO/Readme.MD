@@ -8,7 +8,7 @@ CREATE TABLE [dbo].[Users]
 INSERT INTO [dbo].[Users]
 VALUES
 ('Admin', 'Admin'),
-('Cyrill Josh', 'Odato')
-('Charles Andre', 'Pua')
-('Aikem', 'Buenaflor')
+('Cyrill Josh', 'Odato'),
+('Charles Andre', 'Pua'),
+('Aikem', 'Buenaflor'),
 ('William', 'Marpa')
